@@ -21,7 +21,7 @@ export class LoggerService {
     const titleColor = this.logTypeColors[data.log];
     const messageColor = color || 'black';
     const messageWeight = weight || 'normal';
-    const titleMessage = `%c${data.title || data.log}`;
+    const titleMessage = `%c[${data.title || data.log}]`;
     const titleStyle = `color: ${titleColor}; font-weight: bold;`;
 
     if (typeof data.message === 'string') {
