@@ -16,11 +16,13 @@ export class AppComponent {
 
   constructor() {
     this.logService.log({
-      message: 'AppComponent constructor',
-      log: 'info',
-      color: 'red',
+      message: 'This data is a string',
+      log: 'table',
+      color: 'lightPink',
       weight: 'bold',
       showTime: true,
+      enabled: true,
+      title: 'AppComponent',
     });
 
     this.logService.log({
@@ -39,7 +41,7 @@ export class AppComponent {
       color: 'red',
       weight: 'bold',
       showTime: true,
-      enabled: true,
+      enabled: false,
     });
 
     this.logService.log({
