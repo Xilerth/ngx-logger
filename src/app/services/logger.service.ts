@@ -15,22 +15,29 @@ export class LoggerService {
     table: 'green',
   };
 
-  log(data: Logger) {
-    // Use the logTypeColors to set the title color and the color for the message
-    const { color, weight, showTime, message, log, title } = data;
-    const titleColor = this.logTypeColors[data.log];
-    const messageColor = color || 'black';
-    const messageWeight = weight || 'normal';
-    const titleMessage = `%c[${data.title || data.log}]`;
-    const titleStyle = `color: ${titleColor}; font-weight: bold;`;
+  private colorKey = '%c';
 
-    if (typeof data.message === 'string') {
-      const message = ` %c${data.message}`;
-      const messageStyle = `color: ${messageColor}; font-weight: ${messageWeight};`;
-      console[data.log](titleMessage + message, titleStyle, messageStyle);
+  log(data: Logger) {
+    const { color, weight, showTime, message, log, title, enabled } = data;
+    if (!enabled) {
       return;
     }
+    const titleColor = this.logTypeColors[log];
+    const messageColor = color;
+    const messageWeight = weight || 'normal';
+    const titleMessage = `[${title || log}]`;
+    const titleStyle = `color: ${titleColor}; font-weight: bold;`;
+    const time = showTime ? `(${new Date().toLocaleTimeString()})` : '';
 
-    console[data.log](titleMessage, titleStyle, message);
+    if (typeof data.message === 'string') {
+      const message = `${data.message}`;
+      const messageStyle = `color: ${messageColor}; font-weight: ${messageWeight};`;
+      const messageToLog = `${this.colorKey}${time}${titleMessage} ${this.colorKey}${message}`;
+      console[data.log](messageToLog, titleStyle, messageStyle);
+      return;
+    }
+    const titleLog = `${this.colorKey}${time} ${titleMessage}`;
+
+    console[data.log](titleLog, titleStyle, message);
   }
 }

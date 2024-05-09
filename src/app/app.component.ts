@@ -26,8 +26,7 @@ export class AppComponent {
     this.logService.log({
       message: 'AppComponent constructor',
       log: 'error',
-      color: 'red',
-      weight: 'bold',
+
       showTime: false,
     });
 
@@ -40,14 +39,16 @@ export class AppComponent {
       color: 'red',
       weight: 'bold',
       showTime: true,
+      enabled: true,
     });
 
     this.logService.log({
       message: 'AppComponent constructor',
       log: 'log',
-      color: 'red',
+      color: 'purple',
       weight: 'bold',
       showTime: false,
+      enabled: true,
     });
 
     this.logService.log({
