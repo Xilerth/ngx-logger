@@ -20,7 +20,7 @@ export class AppComponent {
       this.logs = logs;
     });
 
-    this.logService.enableSaveLog('log');
+    // this.logService.enableSaveLog('log');
 
     setInterval(() => {
       this.logService.log({
