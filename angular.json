@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "logger": {
+    "demo": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,20 +13,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/logger",
+            "outputPath": "dist/demo",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -57,10 +50,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "logger:build:production"
+              "buildTarget": "demo:build:production"
             },
             "development": {
-              "buildTarget": "logger:build:development"
+              "buildTarget": "demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,25 +61,50 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "logger:build"
+            "buildTarget": "demo:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "logger": {
+      "projectType": "library",
+      "root": "projects/logger",
+      "sourceRoot": "projects/logger/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/logger/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/logger/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/logger/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/logger/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
-            ],
-            "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
+            ]
           }
         }
       }

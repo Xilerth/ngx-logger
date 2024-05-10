@@ -1,67 +1,37 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoggerService } from './services/logger.service';
+import { Logger, LoggerService } from '../../projects/logger/src/public-api';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'logger';
-
+  public logs: Logger[] = [];
   private logService: LoggerService = inject(LoggerService);
 
   constructor() {
-    this.logService.log({
-      message: 'This data is a string',
-      log: 'table',
-      color: 'lightPink',
-      weight: 'bold',
-      showTime: true,
-      enabled: true,
-      title: 'AppComponent',
+    this.logService.logRecords$.subscribe((logs: Logger[]) => {
+      this.logs = logs;
     });
 
-    this.logService.log({
-      message: 'AppComponent constructor',
-      log: 'error',
+    this.logService.enableSaveLog('log');
 
-      showTime: false,
-    });
-
-    this.logService.log({
-      message: [
-        { name: 'John', age: 30 },
-        { name: 'Jane', age: 25 },
-      ],
-      log: 'warn',
-      color: 'red',
-      weight: 'bold',
-      showTime: true,
-      enabled: false,
-    });
-
-    this.logService.log({
-      message: 'AppComponent constructor',
-      log: 'log',
-      color: 'purple',
-      weight: 'bold',
-      showTime: false,
-      enabled: true,
-    });
-
-    this.logService.log({
-      message: [
-        { name: 'John', age: 30 },
-        { name: 'Jane', age: 25 },
-      ],
-      log: 'table',
-      color: 'red',
-      weight: 'bold',
-      showTime: true,
-    });
+    setInterval(() => {
+      this.logService.log({
+        message: 'initialized',
+        log: 'log',
+        color: 'lightPink',
+        weight: 'bold',
+        showTime: true,
+        enabled: true,
+        title: 'AppComponent',
+      });
+    }, 1000);
   }
 }
