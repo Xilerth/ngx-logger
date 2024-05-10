@@ -8,7 +8,8 @@ You can install the ngx-logger package using npm:
 ## USE
 Import the LoggerService in your component or service:
 
-`typescript
+```
+typescript
 
 @Component({
   selector: 'app-my-component',
@@ -24,7 +25,7 @@ export class MyComponent {
     });
   }
 }
-`
+```
 
 ## API
 
