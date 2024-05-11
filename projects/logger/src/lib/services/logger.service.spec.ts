@@ -198,25 +198,6 @@ describe('LoggerService', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  // it('should get logger List', () => {
-  //   const log: Logger = {
-  //     message: 'initialized',
-  //     log: 'log',
-  //     color: 'lightPink',
-  //     weight: 'bold',
-  //     showTime: true,
-  //     disabled: false,
-  //     title: 'AppComponent',
-  //   };
-
-  //   //enable save for log
-  //   service.enableSaveLog('log');
-
-  //   service.log(log);
-  //   service.log(log);
-
-  //   expect(service.loggerList).toEqual([log, log]);
-  // });
   it('should get logger List', () => {
     const log: Logger = {
       message: 'initialized',
@@ -234,6 +215,5 @@ describe('LoggerService', () => {
     service.log(log);
 
     expect(service.loggerList).toEqual([log, log]);
-
   });
 });
