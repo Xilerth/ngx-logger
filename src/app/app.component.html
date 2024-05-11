@@ -1,6 +1,118 @@
-<h1>
-    Logger
-</h1>
-<pre>
-  {{ logs | json }}
-</pre>
+<header>
+  <img src="/assets/angular.svg" alt="" width="150" />
+  <h1>It's just an Angular <span>LOGGER</span></h1>
+</header>
+
+<main>
+  <section class="first-steps">
+    <article class="installation">
+      <h2>Installation</h2>
+      <p>Install the package via npm:</p>
+      <pre>npm install <strong>&#64;Xilerth/ngx-logger</strong></pre>
+    </article>
+    <article class="configuration">
+      <h2>Configuration</h2>
+      <p>Import and inject the service in your component.</p>
+      <pre>
+import &#123; Component, inject &#125; from '&#64;angular/core';
+import <strong>&#123; LoggerService &#125;</strong> from <strong>'&#64;xilerth/ngx-logger'</strong>
+
+&#64;Component(&#123;
+  selector: 'my-component',
+  templateUrl: './my-component.component.html',
+  styleUrls: ['./my-component.component.css']
+&#125;)
+
+export class MyComponent &#123;
+
+  private <strong>loggerService: LoggerService</strong> = inject(<strong>LoggerService</strong>);
+
+&#125;
+      </pre>
+    </article>
+    <article class="use">
+      <h2>Use</h2>
+      <p>Use the service to log messages.</p>
+      <pre>
+this.<strong>loggerService</strong>.log(&#123;
+  title: '[Info Message]',
+  message: 'Hello World!',
+  type: 'info',
+  color: 'blue'
+  weight: 'bold'
+  showTime: true,
+  disabled: false
+&#125;)
+      </pre>
+
+      <p>Logger Interface</p>
+      <pre>
+Logger &#123;
+  <strong>title</strong>: string; (Optional: null)
+  <strong>message</strong>: string; (Required)
+  <strong>type</strong>: LoggerType; (Required)
+  <strong>color</strong>: string;  (Optional: null)
+  <strong>weight</strong>: string; (Optional: null)
+  <strong>showTime</strong>: boolean; (Optional: false)
+  <strong>disabled</strong>: boolean; (Optional: false)
+&#125;</pre
+      >
+    </article>
+  </section>
+
+  <section class="extra-options">
+    <article class="extra-funcionalities">
+      <h2>Extra Functionalities</h2>
+      <p>Disable logs per Logger Type</p>
+      <pre>this.loggerService.<strong>disableLog</strong>('info');</pre>
+    </article>
+
+    <p>Save logs and subscribe to them thanks to the observable!</p>
+    <pre>
+this.loggerService.<strong>logRecords$</strong>().subscribe(logs => &#123;
+  ...
+&#125;)</pre
+    >
+  </section>
+
+  <section class="demo">
+    <article class="demo">
+      <h2>Demo</h2>
+      <p>Open the console to see the logs</p>
+      <div class="playground">
+        <div class="buttons">
+          <h3>Logs Generator</h3>
+          <button (click)="log()">Add Log</button>
+          <button (click)="logInfo()">Add Info</button>
+          <button (click)="logWarn()">Add Warning</button>
+          <button (click)="logError()">Add Error</button>
+          <button (click)="logTable()">Add Success</button>
+        </div>
+        <div class="logs">
+          @for (log of logs; track $index) {
+          <div class="logger">
+            <h3>
+              <span [ngClass]="log.log">[{{ log.log }}]</span>
+              {{ log.title }}
+            </h3>
+            @if (log.log === 'table') {
+            <pre>{{ log.message | json }}</pre>
+            } @else {
+            <p>{{ log.message }}</p>
+            }
+          </div>
+          }
+        </div>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer>
+  <p>&#64;Xilerth/ngx-logger</p>
+  <p>
+    Developed by
+
+    <a href="https://github.com/Xilerth" target="_blank">&#64;Xilerth </a>
+  </p>
+</footer>
