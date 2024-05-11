@@ -16,11 +16,14 @@ export class AppComponent {
   private logService: LoggerService = inject(LoggerService);
 
   constructor() {
-    this.logService.logRecords$.subscribe((logs: Logger[]) => {
-      this.logs = logs;
+    this.logService.logRecords$.subscribe((log: Logger | null) => {
+      if (!log) {
+        return;
+      }
+      this.logs = [log];
     });
 
-    // this.logService.enableSaveLog('log');
+    this.logService.enableSaveLog('log');
 
     setInterval(() => {
       this.logService.log({
@@ -29,7 +32,6 @@ export class AppComponent {
         color: 'lightPink',
         weight: 'bold',
         showTime: true,
-        enabled: true,
         title: 'AppComponent',
       });
     }, 1000);

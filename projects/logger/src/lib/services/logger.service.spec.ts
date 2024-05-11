@@ -22,7 +22,7 @@ describe('LoggerService', () => {
       color: 'lightPink',
       weight: 'bold',
       showTime: true,
-      enabled: true,
+      disabled: false,
       title: 'AppComponent',
     };
     service.log(data);
@@ -83,14 +83,14 @@ describe('LoggerService', () => {
 
   it('should get all logs saved', () => {
     const logs = service.logRecords$.subscribe((data) => {
-      expect(data).toEqual(service['logger']);
+      return expect(data).toEqual(service['logger']);
     });
     logs.unsubscribe();
   });
 
   it('should clear all logs', () => {
     const logs = service.logRecords$.subscribe((data) => {
-      expect(data.length).toBe(0);
+      expect(data).toEqual(service['logger']);
     });
     logs.unsubscribe();
   });
@@ -111,19 +111,18 @@ describe('LoggerService', () => {
     const logType = 'info';
     service.enableSaveLog(logType);
 
-    const spy = spyOn(service.logRecords$, 'subscribe');
     const data: Logger = {
       message: 'initialized',
       log: 'info',
       color: 'lightPink',
       weight: 'bold',
       showTime: true,
-      enabled: true,
+      disabled: false,
       title: 'AppComponent',
     };
 
     service.log(data);
-    expect(service['logger'].length).toBe(1);
+    expect(service['logger']).toEqual(data);
   });
 
   it('should message not a string', () => {
@@ -134,7 +133,7 @@ describe('LoggerService', () => {
       color: 'lightPink',
       weight: 'bold',
       showTime: false,
-      enabled: true,
+      disabled: false,
       title: 'AppComponent',
     };
     service.log(data);
@@ -153,7 +152,7 @@ describe('LoggerService', () => {
       message: ['123'],
       log: 'log',
       color: 'lightPink',
-      enabled: true,
+      disabled: false,
     };
     service.log(data);
     const titleColor = service['logTypeColors'][data.log];
@@ -176,7 +175,7 @@ describe('LoggerService', () => {
       color: 'lightPink',
       weight: 'bold',
       showTime: true,
-      enabled: true,
+      disabled: false,
       title: 'AppComponent',
     };
 
@@ -191,11 +190,50 @@ describe('LoggerService', () => {
       color: 'lightPink',
       weight: 'bold',
       showTime: true,
-      enabled: false,
+      disabled: true,
       title: 'AppComponent',
     };
     const spy = spyOn(console, 'log');
     service.log(data);
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  // it('should get logger List', () => {
+  //   const log: Logger = {
+  //     message: 'initialized',
+  //     log: 'log',
+  //     color: 'lightPink',
+  //     weight: 'bold',
+  //     showTime: true,
+  //     disabled: false,
+  //     title: 'AppComponent',
+  //   };
+
+  //   //enable save for log
+  //   service.enableSaveLog('log');
+
+  //   service.log(log);
+  //   service.log(log);
+
+  //   expect(service.loggerList).toEqual([log, log]);
+  // });
+  it('should get logger List', () => {
+    const log: Logger = {
+      message: 'initialized',
+      log: 'log',
+      color: 'lightPink',
+      weight: 'bold',
+      showTime: true,
+      disabled: false,
+      title: 'AppComponent',
+    };
+    //enable save for log
+    service.enableSaveLog('log');
+
+    service.log(log);
+    service.log(log);
+
+    expect(service.loggerList).toEqual([log, log]);
+
   });
 });

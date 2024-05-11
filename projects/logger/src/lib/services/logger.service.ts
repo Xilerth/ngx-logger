@@ -34,9 +34,9 @@ export class LoggerService {
     table: false,
   };
 
-  private logger$: BehaviorSubject<Logger[]> = new BehaviorSubject<Logger[]>(
-    []
-  );
+  private loggerList_: Logger[] = [];
+  private logger$: BehaviorSubject<Logger | null> =
+    new BehaviorSubject<Logger | null>(null);
 
   /**
    *
@@ -56,11 +56,11 @@ export class LoggerService {
    * @returns void
    */
   public log(data: Logger) {
-    const { color, weight, showTime, message, log, title, enabled } = data;
+    const { color, weight, showTime, message, log, title, disabled } = data;
     if (!this.checkIfLogIsGlobalEnabled(log)) {
       return;
     }
-    if (!enabled) {
+    if (disabled) {
       return;
     }
     const titleColor = this.logTypeColors[log];
@@ -188,8 +188,18 @@ export class LoggerService {
    * this.logService.getLogs();
    * @returns Observable<Logger[]>
    */
-  public get logRecords$(): Observable<Logger[]> {
+  public get logRecords$(): Observable<Logger | null> {
     return this.logger$.asObservable();
+  }
+
+  /**
+   * @description Get all logs
+   * @example
+   * this.loggerList;
+   * @returns Logger[]
+   */
+  public get loggerList(): Logger[] {
+    return this.loggerList_;
   }
 
   /**
@@ -200,16 +210,17 @@ export class LoggerService {
    * @returns void
    */
   private set logger(log: Logger) {
-    this.logger$.next([...this.logger$.value, log]);
+    this.loggerList_.push(log);
+    this.logger$.next(log);
   }
 
   /**
-   * @description Get all logs
+   * @description Get the current logger
    * @example
    * this.logger;
-   * @returns Logger[]
+   * @returns Logger
    */
-  private get logger(): Logger[] {
+  private get logger(): Logger | null {
     return this.logger$.value;
   }
 

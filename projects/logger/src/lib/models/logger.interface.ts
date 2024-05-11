@@ -17,7 +17,7 @@ export interface Logger {
   color?: string;
   weight?: string;
   showTime?: boolean;
-  enabled?: boolean;
+  disabled?: boolean;
 }
 
 /**
