@@ -29,7 +29,6 @@ export class AppComponent {
     this.logService.enableSaveLog('error');
     this.logService.enableSaveLog('table');
 
-    // setInterval(() => {
     this.logService.log({
       message: 'Welcome to Logger Library',
       log: 'log',
@@ -38,7 +37,6 @@ export class AppComponent {
       showTime: true,
       title: '@Xilerth/Logger Library',
     });
-    // }, 1000);
   }
 
   logInfo() {
