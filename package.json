@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:html-path": "ng build --base-href ./logger/",
     "watch": "ng build --watch --configuration development",
     "build:deploy:logger": "ng build logger  && cd dist/logger && npm pack && npm publish --dev --access=public",
     "test": "ng test"

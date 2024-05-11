@@ -15,6 +15,10 @@ main {
   padding: 40px min(100px, 10%);
   margin: 0 auto;
   box-sizing: border-box;
+  a {
+    color: var(--accent-color);
+    font-size: 0.8rem;
+  }
   p {
     color: var(--secondary-color);
   }

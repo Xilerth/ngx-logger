@@ -1,6 +1,13 @@
 {
   "name": "@xilerth/ngx-logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "description": "A simple logger for Angular applications",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xilerth/logger"
+  },
+  "homepage": "https://xilerth.github.io/logger/",
+  "author": "Xilerth",
   "peerDependencies": {
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0"
