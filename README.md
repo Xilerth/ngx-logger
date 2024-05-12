@@ -1,27 +1,47 @@
-# Logger
+# NGX Logger
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
+## Installation
 
-## Development server
+You can install the ngx-logger package using npm:
+`npm install @Xilerth/ngx-logger`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## USE
+Import the LoggerService in your component or service:
 
-## Code scaffolding
+```
+typescript
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+@Component({
+  selector: 'app-my-component',
+  template: '<p>My Component</p>',
+})
+export class MyComponent {
+  constructor(private loggerService: LoggerService) {}
 
-## Build
+  logMessage() {
+    this.loggerService.log({
+      log: 'info',
+      message: 'This is an info message',
+    });
+  }
+}
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## API
 
-## Running unit tests
+### log(data: Logger)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Logs a message with the specified log type and style.
 
-## Running end-to-end tests
+- `data`: An object containing the following properties:
+  - `log`: The log type (e.g., 'info', 'warn', 'error', 'log', 'table').
+  - `message`: The message to log.
+  - `color`: The color of the message (optional).
+  - `weight`: The font weight of the message (optional).
+  - `showTime`: Whether to show the timestamp (optional, default: false).
+  - `title`: The title of the log message (optional).
+  - `enabled`: Whether logging is enabled (optional, default: true).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## License
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
