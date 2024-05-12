@@ -40,7 +40,7 @@ Logs a message with the specified log type and style.
   - `weight`: The font weight of the message (optional).
   - `showTime`: Whether to show the timestamp (optional, default: false).
   - `title`: The title of the log message (optional).
-  - `enabled`: Whether logging is enabled (optional, default: true).
+  - `disabled`: Whether logging is disabled (optional, default: false).
 
 ## License
 
